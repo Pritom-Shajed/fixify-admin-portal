@@ -7,35 +7,32 @@ import 'package:fixify_admin/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_admin/widgets/buttons/image_picker_btn.dart';
 import 'package:fixify_admin/widgets/text_fields/custom_text_field.dart';
 import 'package:fixify_admin/widgets/texts/small_text.dart';
-import 'package:fixify_admin/widgets/texts/text_with_underline.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
-class AddServicePage extends StatefulWidget {
-  const AddServicePage({Key? key}) : super(key: key);
+class AddSubServicePage extends StatefulWidget {
+  final String serviceUid;
+  final String serviceName;
+  const AddSubServicePage({Key? key, required this.serviceUid, required this.serviceName}) : super(key: key);
 
   @override
-  State<AddServicePage> createState() => _AddServicePageState();
+  State<AddSubServicePage> createState() => _AddSubServicePageState();
 }
 
-class _AddServicePageState extends State<AddServicePage> {
+class _AddSubServicePageState extends State<AddSubServicePage> {
   int includeCount = 1;
 
-  late TextEditingController serviceNameController;
   late TextEditingController subServiceNameController;
 
   @override
   void initState() {
-    serviceNameController = TextEditingController();
     subServiceNameController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    serviceNameController.dispose();
     subServiceNameController.dispose();
     super.dispose();
   }
@@ -46,7 +43,7 @@ class _AddServicePageState extends State<AddServicePage> {
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
           leading:
-              CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
+          CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
           backgroundColor: AppColors.whiteColor,
         ),
         body: GetBuilder<ServicesController>(builder: (controller) {
@@ -60,58 +57,31 @@ class _AddServicePageState extends State<AddServicePage> {
                   Row(
                     children: [
                       ImagePickerButton(
-                        onPressed: () =>
-                            controller.pickIcon(ImageSource.camera),
-                        buttonText: controller.serviceIcon != null
-                            ? 'Change Icon'
-                            : 'Add Icon',
-                        imageProvider: controller.serviceIcon != null
-                            ? FileImage(controller.serviceIcon!)
+                        onPressed: () => controller.pickPicture(ImageSource.camera),
+                        buttonText: controller.servicePicture != null
+                            ? 'Change Picture'
+                            : 'Add Picture',
+                        imageProvider: controller.servicePicture != null
+                            ? FileImage(controller.servicePicture!)
                             : null,
                       ),
                       const Spacer(),
                       CustomButton2(
                           text: 'Submit',
                           onTap: () {
-                            if(controller.serviceIcon == null){
-                              showCustomToast('Add service icon');
-                            } else if(serviceNameController.text == '' || serviceNameController.text.isEmpty){
-                              showCustomToast('Add Service Name');
-                            } else if(controller.servicePicture == null){
+                            if(controller.servicePicture == null){
                               showCustomToast('Add Service Picture');
                             } else if(subServiceNameController.text == '' || subServiceNameController.text.isEmpty){
                               showCustomToast('Add Sub-Service Name');
                             } else if(controller.includedTextController.map((controller) => controller.text).contains('')){
-                              showCustomToast('Add Whats Included');
+                              showCustomToast('Fill Whats Included');
                             } else {
-                              controller.addService(
-                                  serviceNameController.text,
-                                  subServiceNameController.text);
+                              controller.addSubService(widget.serviceName, widget.serviceUid, subServiceNameController.text);
                             }
-                          })
+                          }),
                     ],
                   ),
-                  CustomTextField(
-                    titleText: 'Service Name',
-                    controller: serviceNameController,
-                  ),
-                  Divider(
-                    thickness: 1,
-                    height: Dimensions.height20,
-                  ),
-                  const TextWithUnderline(text: 'Sub Service'),
-                  SizedBox(
-                    height: Dimensions.height10,
-                  ),
-                  ImagePickerButton(
-                    onPressed: () => controller.pickPicture(ImageSource.camera),
-                    buttonText: controller.servicePicture != null
-                        ? 'Change Picture'
-                        : 'Add Picture',
-                    imageProvider: controller.servicePicture != null
-                        ? FileImage(controller.servicePicture!)
-                        : null,
-                  ),
+
                   CustomTextField(
                     required: false,
                     titleText: 'Name: ',

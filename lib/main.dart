@@ -57,6 +57,7 @@ class MyApp extends StatelessWidget {
       ),
       getPages: RouteHelper.routes,
       initialRoute: RouteHelper.getSplashScreen(),
+      builder: EasyLoading.init(),
     );
   }
 }

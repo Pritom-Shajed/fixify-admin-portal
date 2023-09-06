@@ -33,14 +33,14 @@ class ServicesModel {
 class Service {
   String? imageUrl;
   String? title;
-  List<String>? included;
+  List<dynamic>? included;
 
   Service({this.imageUrl, this.title, this.included});
 
   Service.fromJson(Map<String, dynamic> json) {
     imageUrl = json['imageUrl'];
     title = json['title'];
-    included = json['included'].cast<String>();
+    included = json['included'].cast<dynamic>();
   }
 
   Map<String, dynamic> toJson() {

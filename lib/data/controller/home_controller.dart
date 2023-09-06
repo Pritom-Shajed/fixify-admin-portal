@@ -12,22 +12,23 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  final List<UserModelCustomer> allCustomers = [];
-  final List<UserModelTechnician> allTechnicians = [];
+   List<UserModelCustomer> allCustomers = [];
+   List<UserModelTechnician> allTechnicians = [];
    List<ServicesModel> allServices = [];
   AdminInfoModel? adminInfo;
 
   final SharedPreferences preferences;
 
-  bool _isLoading = true;
-  bool get isLoading => _isLoading;
+  // bool _isLoading = true;
+  // bool get isLoading => _isLoading;
 
   HomeController({required this.preferences});
 
 
 
   Future<void> fetchAllUsers() async {
-
+    allCustomers = [];
+    allTechnicians = [];
     try {
       final customer = await _firestore
           .collection('users')
@@ -77,6 +78,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> fetchAllServices () async{
+    allServices = [];
     try {
       final services = await _firestore.collection('services').get();
 
@@ -106,20 +108,14 @@ class HomeController extends GetxController {
   }
 
   Future<void> loadInitialData () async{
-    _isLoading = true;
-    update();
     try {
 
       await fetchAdminInfo();
       await fetchAllUsers();
       await fetchAllServices();
 
-      _isLoading = false;
-      update();
 
     } catch(e){
-      _isLoading = false;
-      update();
       showCustomToast('Error fetching initial data');
     }
 

@@ -23,7 +23,7 @@ class AllServicesPage extends StatelessWidget {
         backgroundColor: AppColors.whiteColor,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10 * 1),
+        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10),
         child: Column(
           children: [
             Align(
@@ -35,6 +35,8 @@ class AllServicesPage extends StatelessWidget {
                         onTap: () {
                           Get.find<ServicesController>()
                               .clearIncludedTextController()
+                              .whenComplete(() => Get.find<ServicesController>()
+                              .clearPictures())
                               .whenComplete(() => Get.find<ServicesController>()
                                   .addNewIncludedTextController()
                                   .whenComplete(() => Get.toNamed(

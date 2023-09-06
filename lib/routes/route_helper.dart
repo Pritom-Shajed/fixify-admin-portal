@@ -1,6 +1,7 @@
 import 'package:fixify_admin/pages/auth/authentication_page.dart';
 import 'package:fixify_admin/pages/home/customers/all_customer_page.dart';
 import 'package:fixify_admin/pages/home/services/add_service_page.dart';
+import 'package:fixify_admin/pages/home/services/add_sub_service_page.dart';
 import 'package:fixify_admin/pages/home/services/all_services_page.dart';
 import 'package:fixify_admin/pages/home/services/service_details_page.dart';
 import 'package:fixify_admin/pages/home/services/sub_service_page.dart';
@@ -22,12 +23,20 @@ class RouteHelper {
   static String allServicesPage = '/all-services-page';
 
   static String getAllServicesPage() => allServicesPage;
+
+
+  //Technician
   static String allTechnicianPage = '/all-technicians-page';
 
   static String getAllTechnicianPage() => allTechnicianPage;
+
+  //Customer
   static String allCustomerPage = '/all-customer-page';
 
   static String getAllCustomerPage() => allCustomerPage;
+
+
+  //Service
 
   static String serviceDetailsPage = '/service-details-page';
 
@@ -43,6 +52,11 @@ class RouteHelper {
   static String addServicePage = '/add-service-page';
 
   static String getAddServicePage() => addServicePage;
+
+  static String addSubServicePage = '/add-sub-service-page';
+
+  static String getAddSubServicePage(String serviceUid, String serviceName) => '$addSubServicePage?serviceUid=$serviceUid&serviceName=$serviceName';
+
 
   //Auth
   static String authPage = '/auth-page';
@@ -74,6 +88,9 @@ class RouteHelper {
         name: allCustomerPage,
         transition: Transition.cupertino,
         page: () => const AllCustomerPage()),
+
+
+    //Service
     GetPage(
         name: subServicePage,
         transition: Transition.cupertino,
@@ -98,5 +115,17 @@ class RouteHelper {
         name: addServicePage,
         transition: Transition.cupertino,
         page: () => const AddServicePage()),
+
+    GetPage(
+        name: addSubServicePage,
+        transition: Transition.cupertino,
+        page: () {
+          var serviceUid = Get.parameters['serviceUid']!;
+          var serviceName = Get.parameters['serviceName']!;
+          return AddSubServicePage(
+            serviceName: serviceName,
+            serviceUid: serviceUid,
+          );
+        }),
   ];
 }
