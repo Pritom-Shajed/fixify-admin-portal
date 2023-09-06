@@ -57,7 +57,7 @@ class _AddSubServicePageState extends State<AddSubServicePage> {
                   Row(
                     children: [
                       ImagePickerButton(
-                        onPressed: () => controller.pickPicture(ImageSource.camera),
+                        onPressed: () => controller.pickPicture(ImageSource.gallery),
                         buttonText: controller.servicePicture != null
                             ? 'Change Picture'
                             : 'Add Picture',

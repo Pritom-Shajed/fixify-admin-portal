@@ -61,7 +61,7 @@ class _AddServicePageState extends State<AddServicePage> {
                     children: [
                       ImagePickerButton(
                         onPressed: () =>
-                            controller.pickIcon(ImageSource.camera),
+                            controller.pickIcon(ImageSource.gallery),
                         buttonText: controller.serviceIcon != null
                             ? 'Change Icon'
                             : 'Add Icon',
@@ -104,7 +104,7 @@ class _AddServicePageState extends State<AddServicePage> {
                     height: Dimensions.height10,
                   ),
                   ImagePickerButton(
-                    onPressed: () => controller.pickPicture(ImageSource.camera),
+                    onPressed: () => controller.pickPicture(ImageSource.gallery),
                     buttonText: controller.servicePicture != null
                         ? 'Change Picture'
                         : 'Add Picture',
