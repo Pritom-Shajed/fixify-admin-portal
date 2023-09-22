@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 
 class UserModelTechnician {
   String? userRole;
+  String? accountStatus;
   String? profilePic;
   String? fullName;
   String? nickName;
@@ -21,6 +22,7 @@ class UserModelTechnician {
 
   UserModelTechnician({
     this.userRole,
+    this.accountStatus,
     this.profilePic,
     this.fullName,
     this.nickName,
@@ -43,6 +45,7 @@ class UserModelTechnician {
     return {
       'uid': uid,
       'userRole': userRole,
+      'accountStatus': accountStatus,
       'profilePic': profilePic,
       'joinedDate': joinedDate,
       'fullName': fullName,
@@ -66,6 +69,7 @@ class UserModelTechnician {
     return UserModelTechnician(
       uid: data['uid'],
       userRole: data['userRole'],
+      accountStatus: data['accountStatus'],
       profilePic: data['profilePic'],
       joinedDate: data['joinedDate'],
       fullName: data['fullName'],

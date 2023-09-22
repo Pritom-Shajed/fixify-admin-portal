@@ -7,6 +7,7 @@ import 'package:fixify_admin/pages/home/services/service_details_page.dart';
 import 'package:fixify_admin/pages/home/services/sub_service_page.dart';
 import 'package:fixify_admin/pages/home/technicians/all_technician_page.dart';
 import 'package:fixify_admin/pages/home/home_page.dart';
+import 'package:fixify_admin/pages/home/technicians/technician_details.dart';
 import 'package:fixify_admin/pages/splashscreen/splashscreen_page.dart';
 import 'package:get/get.dart';
 
@@ -29,6 +30,10 @@ class RouteHelper {
   static String allTechnicianPage = '/all-technicians-page';
 
   static String getAllTechnicianPage() => allTechnicianPage;
+
+  static String viewTechnicianInfoPage = '/view-technician-info-page';
+
+  static String getViewTechnicianInfoPage(String uid) => '$viewTechnicianInfoPage?uid=$uid';
 
   //Customer
   static String allCustomerPage = '/all-customer-page';
@@ -81,13 +86,23 @@ class RouteHelper {
         transition: Transition.cupertino,
         page: () => const AllServicesPage()),
     GetPage(
+        name: allCustomerPage,
+        transition: Transition.cupertino,
+        page: () => const AllCustomerPage()),
+
+    //Technician
+    GetPage(
         name: allTechnicianPage,
         transition: Transition.cupertino,
         page: () => const AllTechnicianPage()),
     GetPage(
-        name: allCustomerPage,
+        name: viewTechnicianInfoPage,
         transition: Transition.cupertino,
-        page: () => const AllCustomerPage()),
+        page: () {
+
+          var uid = Get.parameters['uid']!;
+          return ViewTechnicianInfoPage(technicianUid: uid);
+        }),
 
 
     //Service

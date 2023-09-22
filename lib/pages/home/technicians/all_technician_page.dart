@@ -1,8 +1,7 @@
 import 'package:fixify_admin/data/controller/home_controller.dart';
-import 'package:fixify_admin/data/controller/home_controller.dart';
+import 'package:fixify_admin/routes/route_helper.dart';
 import 'package:fixify_admin/utils/app_colors.dart';
 import 'package:fixify_admin/utils/dimensions.dart';
-import 'package:fixify_admin/widgets/buttons/custom_button2.dart';
 import 'package:fixify_admin/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_admin/widgets/home/technician_card.dart';
 import 'package:flutter/material.dart';
@@ -33,6 +32,8 @@ class AllTechnicianPage extends StatelessWidget {
             itemBuilder: (context, index) {
               var data = allTechnicians[index];
               return TechnicianCard(
+                onTap: () => Get.toNamed(RouteHelper.getViewTechnicianInfoPage(data.uid!)),
+                status: data.accountStatus ?? 'null',
                 imageUrl: data.profilePic ??
                     'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
                 name: data.nickName ?? 'null',
