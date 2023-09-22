@@ -49,7 +49,9 @@ class TechnicianCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
               color: status == 'Inactive'
                   ? AppColors.middleColor
-                  : AppColors.positiveColor,
+                  : status == 'Active'
+                  ? AppColors.positiveColor
+                  : AppColors.negativeColor,
             ),
             SizedBox(
               height: Dimensions.height15,

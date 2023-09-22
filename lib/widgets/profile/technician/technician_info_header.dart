@@ -14,7 +14,17 @@ class TechnicianInfoHeader extends StatelessWidget {
   final String profilePicUrl;
   final VoidCallback onTapStatus;
   final String status;
-  const TechnicianInfoHeader({Key? key, required this.fullName, required this.area, required this.profilePicUrl, required this.division, required this.nickName, required this.onTapStatus, required this.status}) : super(key: key);
+
+  const TechnicianInfoHeader(
+      {Key? key,
+      required this.fullName,
+      required this.area,
+      required this.profilePicUrl,
+      required this.division,
+      required this.nickName,
+      required this.onTapStatus,
+      required this.status})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +32,7 @@ class TechnicianInfoHeader extends StatelessWidget {
       width: double.maxFinite,
       padding: EdgeInsets.all(Dimensions.padding10),
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(
-            Dimensions.radius4 * 2),
+        borderRadius: BorderRadius.circular(Dimensions.radius4 * 2),
         color: AppColors.primaryColor.withOpacity(0.05),
       ),
       child: Row(
@@ -31,29 +40,28 @@ class TechnicianInfoHeader extends StatelessWidget {
           CachedNetworkImage(
               imageUrl: profilePicUrl,
               imageBuilder: (context, imageProvider) => Container(
-                padding: EdgeInsets.all(Dimensions.padding5/5),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(
-                        Dimensions.radius4 * 3),
-                    border: Border.all(color: AppColors.primaryColorLight, width: 1.5)
-                ),
-                child: Container(
-                  height: Dimensions.height20 * 4,
-                  width: Dimensions.height20 * 4,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(
-                          Dimensions.radius4 * 3),
-                      image: DecorationImage(
-                          image: imageProvider,
-                          fit: BoxFit.cover)),
-                ),
-              ),
-              placeholder: (context, url) =>
-                  ShimmerWidgetContainer(
+                    padding: EdgeInsets.all(Dimensions.padding5 / 5),
+                    decoration: BoxDecoration(
+                        borderRadius:
+                            BorderRadius.circular(Dimensions.radius4 * 3),
+                        border: Border.all(
+                            color: AppColors.primaryColorLight, width: 1.5)),
+                    child: Container(
                       height: Dimensions.height20 * 4,
-                      width: Dimensions.height20 * 4)),
-          SizedBox(width: Dimensions.width10,),
-
+                      width: Dimensions.height20 * 4,
+                      decoration: BoxDecoration(
+                          borderRadius:
+                              BorderRadius.circular(Dimensions.radius4 * 3),
+                          image: DecorationImage(
+                              image: imageProvider, fit: BoxFit.cover)),
+                    ),
+                  ),
+              placeholder: (context, url) => ShimmerWidgetContainer(
+                  height: Dimensions.height20 * 4,
+                  width: Dimensions.height20 * 4)),
+          SizedBox(
+            width: Dimensions.width10,
+          ),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -70,20 +78,25 @@ class TechnicianInfoHeader extends StatelessWidget {
                 RichText(
                     text: TextSpan(
                         text: '$division | ',
-                        style: TextStyle(color: AppColors.primaryColor, fontSize: Dimensions.font12),
-                        children: [
-                          TextSpan(text: area)
-                        ])),
-
+                        style: TextStyle(
+                            color: AppColors.primaryColor,
+                            fontSize: Dimensions.font12),
+                        children: [TextSpan(text: area)])),
                 SizedBox(
                   height: Dimensions.height5,
                 ),
                 CustomButton(
-                    text: status, onTap: onTapStatus ,color: status == 'Inactive' ? AppColors.middleColor : AppColors.positiveColor,),
+                  text: status,
+                  onTap: onTapStatus,
+                  color: status == 'Inactive'
+                      ? AppColors.middleColor
+                      : status == 'Active'
+                          ? AppColors.positiveColor
+                          : AppColors.negativeColor,
+                ),
               ],
             ),
           ),
-
         ],
       ),
     );

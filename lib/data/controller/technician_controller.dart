@@ -18,7 +18,7 @@ class TechnicianController extends GetxController {
           .update({
         'accountStatus': status,
       }).whenComplete(() {
-        showCustomSnackBar( status == 'Active' ? 'Account activated' : 'Account deactivated',
+        showCustomSnackBar( status == 'Active' ? 'Account activated' : 'Account suspended',
             title: 'Done');
         EasyLoading.dismiss();
         Get.offNamedUntil(RouteHelper.getHomePage(), (route) => route.isFirst);

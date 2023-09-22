@@ -36,7 +36,11 @@ showCustomStatusDialog (BuildContext context, {
                   text: status,
                   style: TextStyle(
                     fontSize: Dimensions.font16,
-                    color: status == 'Inactive' ? AppColors.middleColor : AppColors.positiveColor,
+                    color: status == 'Inactive'
+                        ? AppColors.middleColor
+                        : status == 'Active'
+                        ? AppColors.positiveColor
+                        : AppColors.negativeColor,
                   )
                 )
               ]
@@ -49,7 +53,11 @@ showCustomStatusDialog (BuildContext context, {
                   textAlign: TextAlign.center,
                   text: subtitleText,
                   fontSize: Dimensions.font14,
-                  color:  status == 'Inactive' ? AppColors.positiveColor : AppColors.negativeColor ,
+                  color:  status == 'Inactive'
+                      ? AppColors.middleColor
+                      : status == 'Active'
+                      ? AppColors.positiveColor
+                      : AppColors.negativeColor,
                 )),
           ],
         ),
@@ -59,7 +67,7 @@ showCustomStatusDialog (BuildContext context, {
               textColor: AppColors.primaryColor,
               color: AppColors.primaryColorLight.withOpacity(0.3),
               onTap: onTap,
-              text: status == 'Inactive' ? 'Activate' : 'Deactivate' ),
+              text: status == 'Inactive' || status == 'Suspended' ? 'Activate' : 'Suspend' ),
         )
       ],
     );
