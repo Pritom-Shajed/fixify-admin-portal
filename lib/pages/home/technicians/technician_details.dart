@@ -7,7 +7,7 @@ import 'package:fixify_admin/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_admin/widgets/profile/profile_view_card.dart';
 import 'package:fixify_admin/widgets/profile/technician/technician_info_header.dart';
 import 'package:fixify_admin/widgets/profile/technician/technician_info_short_card.dart';
-import 'package:fixify_admin/widgets/profile/technician/technician_info_text.dart';
+import 'package:fixify_admin/widgets/profile/user_info_text.dart';
 import 'package:fixify_admin/widgets/texts/medium_text.dart';
 import 'package:fixify_admin/widgets/texts/small_text.dart';
 import 'package:flutter/material.dart';
@@ -130,33 +130,38 @@ class _ViewTechnicianInfoPageState extends State<ViewTechnicianInfoPage> {
                             height: Dimensions.height10,
                           ),
 
-                          TechnicianInfoText(
+                          UserInfoText(
                             text1: 'Nickname',
                             text2: userData.nickName!,
                             fontSize: Dimensions.font14,
                           ),
-                          TechnicianInfoText(
+                          UserInfoText(
+                            text1: 'Joined',
+                            text2: userData.joinedDate!,
+                            fontSize: Dimensions.font14,
+                          ),
+                          UserInfoText(
                             text1: 'Email',
                             text2: userData.email!,
                             fontSize: Dimensions.font14,
                           ),
-                          TechnicianInfoText(
+                          UserInfoText(
                             text1: 'Preferred Area',
                             text2:
                                 "${userData.preferredArea!}, ${userData.division}",
                             fontSize: Dimensions.font14,
                           ),
-                          TechnicianInfoText(
+                          UserInfoText(
                             text1: 'NID Number',
                             text2: userData.nidNumber!,
                             fontSize: Dimensions.font14,
                           ),
-                          TechnicianInfoText(
+                          UserInfoText(
                             text1: 'Work Days',
                             text2: userData.workDays!.join(', '),
                             fontSize: Dimensions.font14,
                           ),
-                          TechnicianInfoText(
+                          UserInfoText(
                               text1: 'Work Time',
                               text2: '${userData.time1} to ${userData.time2}',
                               fontSize: Dimensions.font14,

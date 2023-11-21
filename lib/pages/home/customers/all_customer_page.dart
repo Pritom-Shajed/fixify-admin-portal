@@ -1,4 +1,5 @@
 import 'package:fixify_admin/data/controller/home_controller.dart';
+import 'package:fixify_admin/routes/route_helper.dart';
 import 'package:fixify_admin/utils/app_colors.dart';
 import 'package:fixify_admin/utils/dimensions.dart';
 import 'package:fixify_admin/widgets/buttons/custom_icon_button.dart';
@@ -35,7 +36,7 @@ class AllCustomerPage extends StatelessWidget {
                   'https://i.pinimg.com/736x/bb/e3/02/bbe302ed8d905165577c638e908cec76.jpg',
                   name: data.uname ?? 'null',
                   email: data.email ?? 'null',
-                  onTap: (){});
+                  onTap: () => Get.toNamed(RouteHelper.getViewCustomerInfoPage(data.uid ?? '')));
             })
       ),
     );

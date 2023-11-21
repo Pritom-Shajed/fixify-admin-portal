@@ -118,6 +118,9 @@ class ServicesController extends GetxController {
 
   Future<void> addSubService(
       String serviceName, String serviceId, String subServiceName) async {
+    // print(serviceId);
+    // print(serviceName);
+    // print(subServiceName);
     try {
       EasyLoading.show(status: 'Adding sub-service...');
 

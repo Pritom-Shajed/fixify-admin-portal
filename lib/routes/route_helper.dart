@@ -1,5 +1,6 @@
 import 'package:fixify_admin/pages/auth/authentication_page.dart';
 import 'package:fixify_admin/pages/home/customers/all_customer_page.dart';
+import 'package:fixify_admin/pages/home/customers/customer_details.dart';
 import 'package:fixify_admin/pages/home/services/add_service_page.dart';
 import 'package:fixify_admin/pages/home/services/add_sub_service_page.dart';
 import 'package:fixify_admin/pages/home/services/all_services_page.dart';
@@ -39,6 +40,10 @@ class RouteHelper {
   static String allCustomerPage = '/all-customer-page';
 
   static String getAllCustomerPage() => allCustomerPage;
+
+  static String viewCustomerInfoPage = '/view-customer-info-page';
+
+  static String getViewCustomerInfoPage(String uid) => '$viewCustomerInfoPage?uid=$uid';
 
 
   //Service
@@ -89,6 +94,14 @@ class RouteHelper {
         name: allCustomerPage,
         transition: Transition.cupertino,
         page: () => const AllCustomerPage()),
+    GetPage(
+        name: viewCustomerInfoPage,
+        transition: Transition.cupertino,
+        page: () {
+
+          var uid = Get.parameters['uid']!;
+          return ViewCustomerInfoPage(customerUid: uid);
+        }),
 
     //Technician
     GetPage(

@@ -3,7 +3,7 @@ import 'package:fixify_admin/utils/dimensions.dart';
 import 'package:fixify_admin/widgets/texts/medium_text.dart';
 import 'package:flutter/material.dart';
 
-class TechnicianInfoText extends StatelessWidget {
+class UserInfoText extends StatelessWidget {
   final String text1;
   final String text2;
   final BorderSide? borderSide;
@@ -11,7 +11,7 @@ class TechnicianInfoText extends StatelessWidget {
   final double fontSize;
   final int? maxLines;
 
-  const TechnicianInfoText(
+  const UserInfoText(
       {super.key,
         required this.text1,
         this.text2 = 'text2',
