@@ -86,7 +86,21 @@ class _HomePageState extends State<HomePage> {
                                             .toString(),
                                         title: 'Total Technicians')),
                               ],
-                            )
+                            ),
+                            SizedBox(
+                              height: Dimensions.height10,
+                            ),
+                            Row(
+                              children: [
+                                Expanded(
+                                    child: ShowInfoContainer(
+                                        onTap: () => Get.toNamed(
+                                            RouteHelper.getAddBannerPage()),
+                                        number: controller.allServices.length
+                                            .toString(),
+                                        title: 'Banners')),
+                              ],
+                            ),
                           ],
                         ),
                       ),

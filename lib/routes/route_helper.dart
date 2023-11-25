@@ -1,4 +1,5 @@
 import 'package:fixify_admin/pages/auth/authentication_page.dart';
+import 'package:fixify_admin/pages/home/banners/add_banner_page.dart';
 import 'package:fixify_admin/pages/home/customers/all_customer_page.dart';
 import 'package:fixify_admin/pages/home/customers/customer_details.dart';
 import 'package:fixify_admin/pages/home/services/add_service_page.dart';
@@ -25,6 +26,9 @@ class RouteHelper {
   static String allServicesPage = '/all-services-page';
 
   static String getAllServicesPage() => allServicesPage;
+
+  static String addBannerPage = '/add-banner-page';
+  static String getAddBannerPage ()=> addBannerPage;
 
 
   //Technician
@@ -86,6 +90,10 @@ class RouteHelper {
         name: homePage,
         transition: Transition.cupertino,
         page: () => const HomePage()),
+    GetPage(
+        name: addBannerPage,
+        transition: Transition.cupertino,
+        page: () => const AddBannerPage()),
     GetPage(
         name: allServicesPage,
         transition: Transition.cupertino,
