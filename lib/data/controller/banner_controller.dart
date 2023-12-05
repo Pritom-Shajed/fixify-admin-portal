@@ -34,11 +34,10 @@ class BannerController extends GetxController {
     }
   }
 
-  Future<void> addBanner() async {
+  Future<void> addBanner({required String bannerUid}) async {
     try {
-      EasyLoading.show(status: 'Adding service...');
-      // Generate a unique ID using Uuid
-      var uid = const Uuid().v4();
+      EasyLoading.show(status: 'Adding banner...');
+
       var bannerUid = const Uuid().v1();
 
       // Create a reference for the service icon
@@ -46,30 +45,37 @@ class BannerController extends GetxController {
           .ref()
           .child('banners')
           .child(selectedBannerCategory)
-          .child('${selectedBannerCategory}_$uid');
+          .child('${selectedBannerCategory}_$bannerUid');
 
       // Upload the service icon
       TaskSnapshot iconTaskSnapshot = await iconRef.putFile(bannerPicture!);
       String bannerUrl = await iconTaskSnapshot.ref.getDownloadURL();
 
 
-      // Create a ServicesModel object
-      BannerModel services = BannerModel(
-        uid: uid,
-        bannerType: selectedBannerCategory,
-        bannerList: [
-          BannerIndividual(
-            bannerUid: bannerUid,
-            bannerUrl: bannerUrl
-          )
-        ],
+      BannerIndividual banner =  BannerIndividual(
+          bannerUid: bannerUid,
+          bannerUrl: bannerUrl
       );
+
+      // // Create a ServicesModel object
+      // BannerModel services = BannerModel(
+      //   uid: uid,
+      //   bannerType: selectedBannerCategory,
+      //   bannerList: [
+      //     BannerIndividual(
+      //       bannerUid: bannerUid,
+      //       bannerUrl: bannerUrl
+      //     )
+      //   ],
+      // );
 
       // Add the banner data to Firestore
       await FirebaseFirestore.instance
           .collection('banners')
-          .doc(uid)
-          .set(services.toJson())
+          .doc('a04c4ff0-9395-11ee-8d69-c33d70edb12f')
+          .update({
+        'bannerList': FieldValue.arrayUnion([banner.toJson()])
+      })
           .whenComplete(() {
         EasyLoading.dismiss();
         showCustomSnackBar('New Banner Added', title: 'Added');

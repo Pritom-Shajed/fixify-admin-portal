@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_admin/base/show_custom_toast.dart';
 import 'package:fixify_admin/model/admin_info_model.dart';
+import 'package:fixify_admin/model/banner_model.dart';
 import 'package:fixify_admin/model/services_model.dart';
 import 'package:fixify_admin/model/user_model_customer.dart';
 import 'package:fixify_admin/model/user_model_technician.dart';
@@ -15,6 +16,7 @@ class HomeController extends GetxController {
    List<UserModelCustomer> allCustomers = [];
    List<UserModelTechnician> allTechnicians = [];
    List<ServicesModel> allServices = [];
+   List<BannerModel> allBanners = [];
   AdminInfoModel? adminInfo;
 
   final SharedPreferences preferences;
@@ -107,12 +109,43 @@ class HomeController extends GetxController {
     }
   }
 
+  Future<void> fetchAllBanners () async{
+    allBanners = [];
+    try {
+      final banners = await _firestore.collection('banners').get();
+
+
+      if (banners.docs.isNotEmpty) {
+
+        // // Convert the QuerySnapshot to a list of maps
+        List<Map<String, dynamic>> data =
+        banners.docs.map((doc) => doc.data()).toList();
+
+        // Convert the list of maps to a JSON string
+        String jsonData = jsonEncode(data);
+
+
+        List<dynamic> jsonList = json.decode(jsonData);
+
+        allBanners = jsonList.map((json) => BannerModel.fromJson(json)).toList();
+
+        update();
+
+      }
+
+    } catch (e) {
+
+      throw Exception('Error while fetching banners, Error: $e');
+    }
+  }
+
   Future<void> loadInitialData () async{
     try {
 
       await fetchAdminInfo();
       await fetchAllUsers();
       await fetchAllServices();
+      await fetchAllBanners();
 
 
     } catch(e){

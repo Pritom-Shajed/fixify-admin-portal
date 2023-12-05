@@ -1,6 +1,8 @@
 import 'package:fixify_admin/base/show_custom_toast.dart';
 import 'package:fixify_admin/data/controller/banner_controller.dart';
+import 'package:fixify_admin/data/controller/home_controller.dart';
 import 'package:fixify_admin/data/controller/services_controller.dart';
+import 'package:fixify_admin/model/banner_model.dart';
 import 'package:fixify_admin/utils/app_colors.dart';
 import 'package:fixify_admin/utils/dimensions.dart';
 import 'package:fixify_admin/widgets/buttons/custom_button.dart';
@@ -35,6 +37,7 @@ class _AddBannerPageState extends State<AddBannerPage> {
   void initState() {
     serviceNameController = TextEditingController();
     subServiceNameController = TextEditingController();
+
     super.initState();
   }
 
@@ -45,7 +48,10 @@ class _AddBannerPageState extends State<AddBannerPage> {
     super.dispose();
   }
 
-  List<String> bannerCategory = ['Dashboard Banner', 'Technician Banner'];
+
+
+    final bannerList = Get.find<HomeController>().allBanners;
+
 
   @override
   Widget build(BuildContext context) {
@@ -68,14 +74,14 @@ class _AddBannerPageState extends State<AddBannerPage> {
                     text: 'Banner Type',
                     dropdownButton: CustomDropdownFields.dropdown1(
                       value: controller.selectedBannerCategory,
-                        items: bannerCategory, onChanged: (banner) {
+                        items: bannerList.map((e) => e.bannerType).toList(), onChanged: (banner) {
                       controller.updateSelectedBannerCategory(banner.toString());
                     }),
                   ),
                   ImagePickerButton(
                     isBanner: true,
                     onPressed: () =>
-                        controller.pickBanner(ImageSource.camera),
+                        controller.pickBanner(ImageSource.gallery),
                     buttonText: controller.bannerPicture != null
                         ? 'Change Banner'
                         : 'Add Banner',
@@ -87,7 +93,7 @@ class _AddBannerPageState extends State<AddBannerPage> {
                     height: Dimensions.height20*2,
                   ),
                   CustomButton2(text: 'Submit', onTap: (){
-                    controller.addBanner();
+                    controller.addBanner(bannerUid: bannerList.where((banner) => banner.bannerType == controller.selectedBannerCategory).singleOrNull?.uid ?? '');
                   }),
                 ],
               ),
