@@ -3,28 +3,22 @@ import 'package:fixify_admin/base/show_custom_snackbar.dart';
 import 'package:fixify_admin/base/show_custom_toast.dart';
 import 'package:fixify_admin/data/controller/banner_controller.dart';
 import 'package:fixify_admin/data/controller/home_controller.dart';
-import 'package:fixify_admin/data/controller/services_controller.dart';
-import 'package:fixify_admin/model/banner_model.dart';
 import 'package:fixify_admin/utils/app_colors.dart';
 import 'package:fixify_admin/utils/dimensions.dart';
-import 'package:fixify_admin/widgets/bottom_sheet/bottom_sheets.dart';
-import 'package:fixify_admin/widgets/buttons/custom_button.dart';
 import 'package:fixify_admin/widgets/buttons/custom_button2.dart';
 import 'package:fixify_admin/widgets/buttons/custom_icon_button.dart';
 import 'package:fixify_admin/widgets/buttons/image_picker_btn.dart';
 import 'package:fixify_admin/widgets/common/info_dropdown_text.dart';
 import 'package:fixify_admin/widgets/dropdown_fields/custom_dropdown_fields.dart';
 import 'package:fixify_admin/widgets/profile/user_info_text.dart';
-import 'package:fixify_admin/widgets/text_fields/custom_text_field.dart';
-import 'package:fixify_admin/widgets/texts/medium_text.dart';
 import 'package:fixify_admin/widgets/texts/small_text.dart';
-import 'package:fixify_admin/widgets/texts/text_with_underline.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 
 class AddBannerPage extends StatefulWidget {
-  const AddBannerPage({Key? key}) : super(key: key);
+  final String bannerTypeUid;
+  const AddBannerPage({Key? key, required this.bannerTypeUid}) : super(key: key);
 
   @override
   State<AddBannerPage> createState() => _AddBannerPageState();
@@ -54,13 +48,14 @@ class _AddBannerPageState extends State<AddBannerPage> {
   }
 
 
-  final bannerList = Get
-      .find<HomeController>()
-      .allBanners;
+
 
 
   @override
   Widget build(BuildContext context) {
+    final bannerInfo = Get
+        .find<HomeController>()
+        .allBanners.where((banner) => banner.uid == widget.bannerTypeUid).singleOrNull;
     return Scaffold(
         backgroundColor: AppColors.whiteColor,
         appBar: AppBar(
@@ -68,7 +63,7 @@ class _AddBannerPageState extends State<AddBannerPage> {
           CustomIconButton(icon: Icons.arrow_back, onTap: () => Get.back()),
           backgroundColor: AppColors.whiteColor,
         ),
-        body: GetBuilder<BannerController>(builder: (controller) {
+        body:bannerInfo == null ? const Center(child: SmallText(text: 'No Data Found!'),) : GetBuilder<BannerController>(builder: (controller) {
           return SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Padding(
@@ -76,41 +71,16 @@ class _AddBannerPageState extends State<AddBannerPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Align(
-                      alignment: Alignment.topRight,
-                      child: SizedBox(
-                          width: Dimensions.screenWidth / 3,
-                          child: CustomButton2(
-                              text: 'Add New Type',
-                              onTap: () {
-                                BottomSheets.bannerAddType(context,
-                                    textController: bannerTypeController,
-                                    onTapAdd: (){
-                                  if(bannerTypeController.text.isEmpty){
-                                    showCustomToast('Banner type can\'t be empty');
-                                  }else {
-                                    controller.addBannerType(bannerType: bannerTypeController.text.trim());
-                                  }
-
-                                    });
-                              }))),
-                  SizedBox(
-                    height: Dimensions.height10,
-                  ),
-                  InfoDropdownText(
-                    text: 'Banner Type',
-                    dropdownButton: CustomDropdownFields.dropdown1(
-                        value: controller.selectedBannerCategory,
-                        items: bannerList.map((e) => e.bannerType).toList(),
-                        onChanged: (banner) {
-                          controller.updateSelectedBannerCategory(banner
-                              .toString());
-                        }),
+                  UserInfoText(
+                    text1: 'Banner Type',
+                    text2: bannerInfo.bannerType ?? 'null',
+                    fontSize: Dimensions.font14,
+                    text2color: AppColors.blackColor,
                   ),
                   ImagePickerButton(
                     isBanner: true,
                     onPressed: () =>
-                        controller.pickBanner(ImageSource.camera),
+                        controller.pickBanner(ImageSource.gallery),
                     buttonText: controller.bannerPicture != null
                         ? 'Change Banner'
                         : 'Add Banner',
@@ -119,14 +89,10 @@ class _AddBannerPageState extends State<AddBannerPage> {
                         : null,
                   ),
                   SizedBox(
-                    height: Dimensions.height20 * 2,
+                    height: Dimensions.height20,
                   ),
-                  CustomButton2(text: 'Submit', onTap: () {
-                    controller.addBanner(bannerTypeUid: bannerList
-                        .where((banner) =>
-                    banner.bannerType == controller.selectedBannerCategory)
-                        .singleOrNull
-                        ?.uid ?? '');
+                  CustomButton2(text: 'Add', onTap: () {
+                    controller.addBanner(bannerTypeUid: bannerInfo.uid ?? 'null');
                   }),
                 ],
               ),

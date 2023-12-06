@@ -10,6 +10,7 @@ class UserInfoText extends StatelessWidget {
   final IconData? icon;
   final double fontSize;
   final int? maxLines;
+  final Color? text2color;
 
   const UserInfoText(
       {super.key,
@@ -17,7 +18,7 @@ class UserInfoText extends StatelessWidget {
         this.text2 = 'text2',
         this.borderSide,
         this.icon,
-        this.fontSize = 0, this.maxLines});
+        this.fontSize = 0, this.maxLines, this.text2color});
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +66,7 @@ class UserInfoText extends StatelessWidget {
                   text: text2,
                   textAlign: TextAlign.right,
                   fontSize: fontSize,
-                  color: AppColors.greyColor,
+                  color: text2color ?? AppColors.greyColor,
                 )),
           )
               : Icon(icon)

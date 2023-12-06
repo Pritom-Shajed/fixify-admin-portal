@@ -33,7 +33,7 @@ class RouteHelper {
 
   //Banner
   static String addBannerPage = '/add-banner-page';
-  static String getAddBannerPage ()=> addBannerPage;
+  static String getAddBannerPage ({required String bannerTypeUid})=> '$addBannerPage?bannerTypeUid=$bannerTypeUid';
 
 
   //Technician
@@ -111,7 +111,10 @@ class RouteHelper {
     GetPage(
         name: addBannerPage,
         transition: Transition.cupertino,
-        page: () => const AddBannerPage()),
+        page: () {
+          var uid = Get.parameters['bannerTypeUid']!;
+          return AddBannerPage(bannerTypeUid: uid);
+        }),
 
 
     //Customer
