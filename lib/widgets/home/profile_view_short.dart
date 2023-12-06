@@ -9,11 +9,13 @@ import 'package:flutter/material.dart';
 class ProfileViewShort extends StatelessWidget {
   final String profilePicUrl;
   final String name;
+  final String greetingsText;
   final VoidCallback onTapSingOut;
 
   const ProfileViewShort({
     Key? key,
     required this.profilePicUrl,
+    required this.greetingsText,
     required this.name, required this.onTapSingOut,
   }) : super(key: key);
 
@@ -58,8 +60,8 @@ class ProfileViewShort extends StatelessWidget {
                 SizedBox(
                   height: Dimensions.height5,
                 ),
-                const SmallText(
-                  text: 'Good Morning...',
+                 SmallText(
+                  text: greetingsText,
                 ),
               ],
             ),

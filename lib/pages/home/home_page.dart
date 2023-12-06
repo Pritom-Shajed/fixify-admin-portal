@@ -5,6 +5,7 @@ import 'package:fixify_admin/data/controller/home_controller.dart';
 import 'package:fixify_admin/routes/route_helper.dart';
 import 'package:fixify_admin/utils/app_colors.dart';
 import 'package:fixify_admin/utils/dimensions.dart';
+import 'package:fixify_admin/widgets/greetings/time_greetings.dart';
 import 'package:fixify_admin/widgets/home/profile_view_short.dart';
 import 'package:fixify_admin/widgets/home/show_info_container.dart';
 import 'package:fixify_admin/widgets/texts/medium_text.dart';
@@ -49,6 +50,7 @@ class _HomePageState extends State<HomePage> {
                                       .adminInfo?.profilePicUrl ??
                                   'https://www.kindpng.com/picc/m/207-2074624_white-gray-circle-avatar-png-transparent-png.png',
                               name: controller.adminInfo?.name ?? 'null',
+                              greetingsText: Greetings.getGreetingsByTime(),
                               onTapSingOut: () =>
                                   Get.find<AuthController>().signOut(),
                             ),
@@ -95,7 +97,7 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                     child: ShowInfoContainer(
                                         onTap: () => Get.toNamed(
-                                            RouteHelper.getAddBannerPage()),
+                                            RouteHelper.getAllBannerPage()),
                                         number: controller.allServices.length
                                             .toString(),
                                         title: 'Banners')),

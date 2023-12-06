@@ -1,5 +1,6 @@
 import 'package:fixify_admin/pages/auth/authentication_page.dart';
 import 'package:fixify_admin/pages/home/banners/add_banner_page.dart';
+import 'package:fixify_admin/pages/home/banners/all_banners_page.dart';
 import 'package:fixify_admin/pages/home/customers/all_customer_page.dart';
 import 'package:fixify_admin/pages/home/customers/customer_details.dart';
 import 'package:fixify_admin/pages/home/services/add_service_page.dart';
@@ -27,6 +28,10 @@ class RouteHelper {
 
   static String getAllServicesPage() => allServicesPage;
 
+  static String allBannerPage = '/all-banner-page';
+  static String getAllBannerPage ()=> allBannerPage;
+
+  //Banner
   static String addBannerPage = '/add-banner-page';
   static String getAddBannerPage ()=> addBannerPage;
 
@@ -51,7 +56,6 @@ class RouteHelper {
 
 
   //Service
-
   static String serviceDetailsPage = '/service-details-page';
 
   static String getServiceDetailsPage(
@@ -78,26 +82,39 @@ class RouteHelper {
   static String getAuthPage() => authPage;
 
   static List<GetPage> routes = [
+
+    //Splash Screen
     GetPage(
         name: splashScreen,
         transition: Transition.cupertino,
         page: () => const SplashScreen()),
-    GetPage(
-        name: authPage,
-        transition: Transition.cupertino,
-        page: () => const AuthPage()),
+
+    //Home Page
     GetPage(
         name: homePage,
         transition: Transition.cupertino,
         page: () => const HomePage()),
+
+
+    //Auth
+    GetPage(
+        name: authPage,
+        transition: Transition.cupertino,
+        page: () => const AuthPage()),
+
+
+    //Banner
+    GetPage(
+        name: allBannerPage,
+        transition: Transition.cupertino,
+        page: () => const AllBannersPage()),
     GetPage(
         name: addBannerPage,
         transition: Transition.cupertino,
         page: () => const AddBannerPage()),
-    GetPage(
-        name: allServicesPage,
-        transition: Transition.cupertino,
-        page: () => const AllServicesPage()),
+
+
+    //Customer
     GetPage(
         name: allCustomerPage,
         transition: Transition.cupertino,
@@ -127,6 +144,10 @@ class RouteHelper {
 
 
     //Service
+    GetPage(
+        name: allServicesPage,
+        transition: Transition.cupertino,
+        page: () => const AllServicesPage()),
     GetPage(
         name: subServicePage,
         transition: Transition.cupertino,

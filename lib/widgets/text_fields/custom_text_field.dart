@@ -15,6 +15,7 @@ class CustomTextField extends StatelessWidget {
   final bool isEnabled;
   final Icon? prefixIcon;
   final VoidCallback? suffixIconOnTap;
+  final Color? fillColor;
 
   const CustomTextField(
       {super.key,
@@ -28,7 +29,10 @@ class CustomTextField extends StatelessWidget {
       this.prefixIcon,
       this.onTap,
       this.isEnabled = true,
-      this.obscureText = false});
+      this.obscureText = false,
+      this.fillColor,
+
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +65,7 @@ class CustomTextField extends StatelessWidget {
               hintStyle: TextStyle(
                   fontSize: Dimensions.font12, color: AppColors.greyColor),
               filled: true,
-              fillColor: AppColors.textFieldColor,
+              fillColor: fillColor ?? AppColors.textFieldColor,
               enabledBorder: OutlineInputBorder(
                   borderSide: const BorderSide(color: Colors.transparent),
                   borderRadius: BorderRadius.circular(Dimensions.radius4)),

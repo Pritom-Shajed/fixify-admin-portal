@@ -34,7 +34,7 @@ class BannerController extends GetxController {
     }
   }
 
-  Future<void> addBanner({required String bannerUid}) async {
+  Future<void> addBanner({required String bannerTypeUid}) async {
     try {
       EasyLoading.show(status: 'Adding banner...');
 
@@ -57,22 +57,11 @@ class BannerController extends GetxController {
           bannerUrl: bannerUrl
       );
 
-      // // Create a ServicesModel object
-      // BannerModel services = BannerModel(
-      //   uid: uid,
-      //   bannerType: selectedBannerCategory,
-      //   bannerList: [
-      //     BannerIndividual(
-      //       bannerUid: bannerUid,
-      //       bannerUrl: bannerUrl
-      //     )
-      //   ],
-      // );
 
       // Add the banner data to Firestore
       await FirebaseFirestore.instance
           .collection('banners')
-          .doc('a04c4ff0-9395-11ee-8d69-c33d70edb12f')
+          .doc(bannerTypeUid)
           .update({
         'bannerList': FieldValue.arrayUnion([banner.toJson()])
       })
@@ -89,47 +78,35 @@ class BannerController extends GetxController {
     }
   }
 
-  // Future<void> addBanner(String bannerId,) async {
-  //   try {
-  //     EasyLoading.show(status: 'Adding sub-service...');
-  //
-  //     // Generate a unique, String text ID using Uuid
-  //     var uid = const Uuid().v1();
-  //
-  //     // Create a reference for the sub-service picture
-  //         Reference picRef = FirebaseStorage.instance
-  //             .ref()
-  //             .child('banners')
-  //             .child(selectedBannerCategory)
-  //             .child('${selectedBannerCategory}_$uid');
-  //
-  //     // Upload the sub-service picture
-  //     TaskSnapshot picTaskSnapshot = await picRef.putFile(bannerPicture!);
-  //     String bannerPicUrl = await picTaskSnapshot.ref.getDownloadURL();
-  //
-  //     // Create a SubService object
-  //     BannerIndividual subService = BannerIndividual(
-  //       bannerUrl: bannerPicUrl,
-  //       bannerUid: uid,
-  //     );
-  //
-  //     // Add the sub-service data to Firestore
-  //     await FirebaseFirestore.instance
-  //         .collection('banners')
-  //         .doc(bannerId)
-  //         .update({
-  //       'bannerList': FieldValue.arrayUnion([subService.toJson()])
-  //     }).whenComplete(() {
-  //       showCustomSnackBar('Banner Added Successfully', title: 'Added');
-  //       EasyLoading.dismiss();
-  //       Get.offNamedUntil(RouteHelper.getHomePage(), (route) => route.isFirst);
-  //     });
-  //   } catch (e) {
-  //     // Handle errors
-  //     EasyLoading.dismiss();
-  //     showCustomSnackBar('Oops! Try again after some time.', title: 'Error');
-  //     throw Exception(e.toString());
-  //   }
-  // }
+  Future<void> addBannerType({required String bannerType}) async {
+    try {
+      EasyLoading.show(status: 'Adding new type...');
+
+      // Generate a unique, String text ID using Uuid
+      var uid = const Uuid().v1();
+
+
+      BannerModel services = BannerModel(
+        uid: uid,
+        bannerType: bannerType,
+        bannerList: [],
+      );
+
+      // Add the sub-service data to Firestore
+      await FirebaseFirestore.instance
+          .collection('banners')
+          .doc(uid)
+          .set(services.toJson()).whenComplete(() {
+        showCustomSnackBar('New Type Added Successfully', title: 'Added');
+        EasyLoading.dismiss();
+        Get.offNamedUntil(RouteHelper.getHomePage(), (route) => route.isFirst);
+      });
+    } catch (e) {
+      // Handle errors
+      EasyLoading.dismiss();
+      showCustomSnackBar('Oops! Try again after some time.', title: 'Error');
+      throw Exception(e.toString());
+    }
+  }
 
 }
