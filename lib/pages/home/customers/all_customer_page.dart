@@ -23,7 +23,7 @@ class AllCustomerPage extends StatelessWidget {
         backgroundColor: AppColors.whiteColor,
       ),
       body: Padding(
-        padding: EdgeInsets.symmetric(horizontal: Dimensions.width10 * 1),
+          padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height10),
         child: ListView.separated(
             physics: const BouncingScrollPhysics(),
             separatorBuilder: (context, index) =>

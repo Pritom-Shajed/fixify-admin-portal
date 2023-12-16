@@ -28,10 +28,13 @@ class _ViewTechnicianInfoPageState extends State<ViewTechnicianInfoPage> {
   Widget build(BuildContext context) {
     final userData = Get.find<HomeController>()
         .allTechnicians
-        .where((element) => element.uid == widget.technicianUid)
+        .where((user) => user.uid == widget.technicianUid)
         .single;
 
-    // List<String> selectedServices = [];
+    final doneJobs = Get.find<HomeController>()
+        .allAppointments
+        .where((job) => job.technicianUid == widget.technicianUid && job.status == 'confirmed').toList();
+
 
     return Scaffold(
         appBar: AppBar(
@@ -70,14 +73,8 @@ class _ViewTechnicianInfoPageState extends State<ViewTechnicianInfoPage> {
                     children: [
                       Expanded(
                         child: TechnicianInfoShortCard(
-                          largeText: userData.worksDone.toString(),
+                          largeText: '${doneJobs.length}',
                           smallText: 'Works Done',
-                        ),
-                      ),
-                      const Expanded(
-                        child: TechnicianInfoShortCard(
-                          largeText: '0',
-                          smallText: 'Current Works',
                         ),
                       ),
                     ],

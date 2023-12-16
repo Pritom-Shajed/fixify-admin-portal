@@ -1,4 +1,6 @@
 import 'package:fixify_admin/pages/auth/authentication_page.dart';
+import 'package:fixify_admin/pages/home/appointments/all_appointments_page.dart';
+import 'package:fixify_admin/pages/home/appointments/appointment_details_page.dart';
 import 'package:fixify_admin/pages/home/banners/add_banner_page.dart';
 import 'package:fixify_admin/pages/home/banners/all_banners_page.dart';
 import 'package:fixify_admin/pages/home/customers/all_customer_page.dart';
@@ -54,6 +56,14 @@ class RouteHelper {
 
   static String getViewCustomerInfoPage(String uid) => '$viewCustomerInfoPage?uid=$uid';
 
+
+  //Appointment
+  static String allAppointmentPage = '/all-appointment-page';
+
+  static String getAllAppointmentPage () => allAppointmentPage;
+
+  static String appointmentDetailsPage = '/appointment-details-page';
+  static String getAppointmentDetailsPage ({required String appointmentUid}) => '$appointmentDetailsPage?appointmentUid=$appointmentUid';
 
   //Service
   static String serviceDetailsPage = '/service-details-page';
@@ -145,6 +155,19 @@ class RouteHelper {
           return ViewTechnicianInfoPage(technicianUid: uid);
         }),
 
+    //Appointment
+    GetPage(
+        name: allAppointmentPage,
+        transition: Transition.cupertino,
+        page: () => const AllAppointmentsPage()),
+
+    GetPage(
+        name: appointmentDetailsPage,
+        transition: Transition.cupertino,
+        page: () {
+          var appointmentUid = Get.parameters['appointmentUid']!;
+          return AppointmentDetailsPage(appointmentUid: appointmentUid);
+        }),
 
     //Service
     GetPage(

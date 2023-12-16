@@ -1,8 +1,8 @@
 import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fixify_admin/base/show_custom_toast.dart';
 import 'package:fixify_admin/model/admin_info_model.dart';
+import 'package:fixify_admin/model/appointment_model.dart';
 import 'package:fixify_admin/model/banner_model.dart';
 import 'package:fixify_admin/model/services_model.dart';
 import 'package:fixify_admin/model/user_model_customer.dart';
@@ -18,6 +18,7 @@ class HomeController extends GetxController {
    List<ServicesModel> allServices = [];
    List<BannerModel> allBanners = [];
   AdminInfoModel? adminInfo;
+  List<AppointmentModel> allAppointments = [];
 
   final SharedPreferences preferences;
 
@@ -109,6 +110,27 @@ class HomeController extends GetxController {
     }
   }
 
+
+
+  Future<void> fetchAllAppointments() async {
+    allAppointments = [];
+
+    try {
+      final QuerySnapshot<Map<String, dynamic>> snapshot =
+      await FirebaseFirestore.instance.collection('hirings').get();
+
+      if (snapshot.docs.isNotEmpty) {
+        for (var orders in snapshot.docs) {
+          allAppointments.add(AppointmentModel.fromSnap(orders));
+        }
+      }
+
+      update();
+    } catch (e) {
+      throw Exception(e.toString());
+    }
+  }
+
   Future<void> fetchAllBanners () async{
     allBanners = [];
     try {
@@ -146,6 +168,7 @@ class HomeController extends GetxController {
       await fetchAllUsers();
       await fetchAllServices();
       await fetchAllBanners();
+      await fetchAllAppointments();
 
 
     } catch(e){

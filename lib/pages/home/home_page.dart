@@ -59,10 +59,10 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                     child: ShowInfoContainer(
                                         onTap: () => Get.toNamed(
-                                            RouteHelper.getAllServicesPage()),
+                                            RouteHelper.getAllBannerPage()),
                                         number: controller.allServices.length
                                             .toString(),
-                                        title: 'Total Services')),
+                                        title: 'Banners')),
                               ],
                             ),
                             SizedBox(
@@ -76,7 +76,7 @@ class _HomePageState extends State<HomePage> {
                                             RouteHelper.getAllCustomerPage()),
                                         number: controller.allCustomers.length
                                             .toString(),
-                                        title: 'Total Customers')),
+                                        title: 'Customers')),
                                 SizedBox(
                                   width: Dimensions.width10 * 2,
                                 ),
@@ -86,7 +86,7 @@ class _HomePageState extends State<HomePage> {
                                             RouteHelper.getAllTechnicianPage()),
                                         number: controller.allTechnicians.length
                                             .toString(),
-                                        title: 'Total Technicians')),
+                                        title: 'Technicians')),
                               ],
                             ),
                             SizedBox(
@@ -97,10 +97,20 @@ class _HomePageState extends State<HomePage> {
                                 Expanded(
                                     child: ShowInfoContainer(
                                         onTap: () => Get.toNamed(
-                                            RouteHelper.getAllBannerPage()),
+                                            RouteHelper.getAllServicesPage()),
                                         number: controller.allServices.length
                                             .toString(),
-                                        title: 'Banners')),
+                                        title: 'Services')),
+                                SizedBox(
+                                  width: Dimensions.width10 * 2,
+                                ),
+                                Expanded(
+                                    child: ShowInfoContainer(
+                                        onTap: () => Get.toNamed(
+                                            RouteHelper.getAllAppointmentPage()),
+                                        number: controller.allAppointments.length
+                                            .toString(),
+                                        title: 'Appointments')),
                               ],
                             ),
                           ],

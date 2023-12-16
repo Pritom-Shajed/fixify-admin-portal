@@ -45,7 +45,7 @@ class _AllBannersPageState extends State<AllBannersPage> {
       body: GetBuilder<BannerController>(builder: (controller) {
         final allBanners = Get.find<HomeController>().allBanners;
         return Padding(
-            padding: EdgeInsets.symmetric(horizontal: Dimensions.width10 * 1),
+            padding: EdgeInsets.symmetric(horizontal: Dimensions.width10, vertical: Dimensions.height10),
             child: Column(
               children: [
                 Align(
